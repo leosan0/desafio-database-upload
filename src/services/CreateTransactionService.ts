@@ -10,6 +10,7 @@ interface RequestDTO {
   value: number;
   type: 'income' | 'outcome';
   category: string;
+  date: Date;
 }
 
 class CreateTransactionService {
@@ -18,6 +19,7 @@ class CreateTransactionService {
     value,
     type,
     category,
+    date,
   }: RequestDTO): Promise<Transaction> {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
@@ -48,6 +50,7 @@ class CreateTransactionService {
       value,
       type,
       category: transactionCategory,
+      date,
     });
 
     await transactionsRepository.save(transaction);
