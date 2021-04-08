@@ -2,13 +2,13 @@ import { Router } from 'express';
 
 import { getCustomRepository } from 'typeorm';
 
-// import CreateTransactionService from '../services/CreateTransactionService';
+import CreateCategoryService from '../services/CreateCategoryService';
 import CategoriesRepository from '../repositories/CategoriesRepository';
+import DeleteCategoryService from '../services/DeleteCategoryService';
 
 const categoriesRouter = Router();
 
 categoriesRouter.get('/', async (request, response) => {
-  // TODO
   const categoriesRepository = getCustomRepository(CategoriesRepository);
 
   const categories = await categoriesRepository.find();
@@ -16,27 +16,27 @@ categoriesRouter.get('/', async (request, response) => {
   return response.json(categories);
 });
 
-// categoriesRouter.post('/', async (request, response) => {
-//   const { title, value, type, category } = request.body;
+categoriesRouter.post('/', async (request, response) => {
+  const { title } = request.body;
 
-//   const createTransaction = new CreateCategorieService();
+  const createCategory = new CreateCategoryService();
 
-//   const categorie = await createCategorie.execute({
-//     title,
-//   });
+  const category = await createCategory.execute({
+    title,
+  });
 
-//   return response.json(categorie);
-// });
+  return response.json(category);
+});
 
-// categoriesRouter.delete('/:id', async (request, response) => {
-//   const { id } = request.params;
+categoriesRouter.delete('/:id', async (request, response) => {
+  const { id } = request.params;
 
-//   const deleteCategory = new DeleteCategoryService();
+  const deleteCategory = new DeleteCategoryService();
 
-//   await deleteCategory.execute(id);
+  await deleteCategory.execute(id);
 
-//   return response.status(204).send();
-// });
+  return response.status(204).send();
+});
 
 // categoriesRouter.post(
 //   '/import',
